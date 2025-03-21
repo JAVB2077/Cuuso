@@ -13,7 +13,6 @@ main = do
  putStr contenido
  hClose inventario
 
---Ricardo Eliseo Montiel Damian
  let inventario = []
  
   let libro1 = crearLibro "El Principito" "Antoine de Saint-Exupéry" 1943 15.99
