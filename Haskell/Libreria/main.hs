@@ -1,6 +1,6 @@
 import Libro
 import Inventario
-import generarReporte
+import Reporte
 
 module Main where
 
