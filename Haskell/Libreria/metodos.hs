@@ -1,15 +1,37 @@
-module Metodos (cargarInventario,guardarInvertario,agregarLibro,eliminarLibro,buscarLibro,eliminarLibro,buscarLibro,listaInventario,actulizarPrecioLibro,ordenarInventario,exportarInforme) where
 import Libro
-agregarLibro :: (String, String, Int, Float, Int) -> [(String, String, Int, Float, Int)] -> [(String, String, Int, Float, Int)]
---agregarLibro libro listaLibros = libro : listaLibros
-agregarLibro (titulo, autor, anioPublicacion, precio, inventario) listaLibros = [(titulo, autor, anioPublicacion, precio, inventario)] ++ listaLibros
+import System.IO
+import System.Directory (removeFile, renameFile)
+import Data.List (delete)
 
-imprimirDirectorio :: [(String, String, Int, Float, Int)] -> IO()
-imprimirDirectorio listaLibro = mapM_ (print) listaLibro
+module Metodos (cargarInventario,guardarInvertario,agregarLibro,eliminarLibro,buscarLibro,eliminarLibro,buscarLibroPorTitulo,buscarLibroPorAutor,listaInventario,actulizarPrecioLibro,ordenarInventario,exportarInforme) where
+
+data Inventario = Inventario
+  { libros :: [(Libro, Integer)]
+  } deriving (Show, Eq)
 
 
-buscarPorTitulo :: String -> [(String, String, Int, Float, Int)] -> [(String, String, Int, Float, Int)]
-buscarPorTitulo titulo listaLibros = filter (\(t, _, _, _, _) -> t == titulo) listaLibros
+-- Agregar libro
+agregarLibro :: Libro -> Integer -> Inventario -> Inventario
+agregarLibro libro cantidad inventario = (libro, cantidad) : inventario
 
-buscarPorAutor :: String -> [(String, String, Int, Float, Int)] -> [(String, String, Int, Float, Int)]
-buscarPorAutor autor listaLibros = filter (\(_, a, _, _, _) -> a == autor) listaLibros
+-- Buscar libros por título
+buscarLibroPorTitulo :: Inventario -> String -> Inventario
+buscarLibroPorTitulo inventario tituloBuscado = filter (\(libro, _) -> titulo libro == tituloBuscado) inventario
+
+--Buscar libros por autor
+buscarAutorPorAutor :: Inventario -> String -> Inventario
+buscarAutorPorAutor inventario autorBuscado = filter (\(libro, _) -> autor libro == autorBuscado) inventario
+
+--Eliminar libro
+eliminarLibro :: FilePath -> Inventario -> String -> String -> IO Inventario
+eliminarLibro archivo (Inventario libros) tituloBuscado autorBuscado = do
+  let nuevoInventario = filter (\(libro, _) -> titulo libro /= tituloBuscado || autor libro /= autorBuscado) libros
+  -- Guardar el nuevo inventario en un archivo temporal
+  (tempName, tempHandle) <- openTempFile "." "temp"
+  hPutStr tempHandle $ unlines (map (\(libro, cantidad) -> titulo libro ++ "," ++ autor libro ++ "," ++ show (año libro) ++ "," ++ show (precio libro) ++ "," ++ show cantidad) nuevoInventario)
+  hClose tempHandle
+  -- Reemplazar el archivo original con el temporal
+  removeFile archivo
+  renameFile tempName archivo
+  putStrLn "Libro eliminado."
+  return (Inventario nuevoInventario)
