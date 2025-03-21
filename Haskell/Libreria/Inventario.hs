@@ -19,8 +19,8 @@ buscarLibroPorTitulo :: Inventario -> String -> Inventario
 buscarLibroPorTitulo inventario tituloBuscado = filter (\(libro, _) -> titulo libro == tituloBuscado) inventario
 
 --Buscar libros por autor
-buscarAutorPorAutor :: Inventario -> String -> Inventario
-buscarAutorPorAutor inventario autorBuscado = filter (\(libro, _) -> autor libro == autorBuscado) inventario
+buscarLibroPorAutor :: Inventario -> String -> Inventario
+buscarLibroPorAutor inventario autorBuscado = filter (\(libro, _) -> autor libro == autorBuscado) inventario
 
 --Eliminar libro
 eliminarLibro :: FilePath -> Inventario -> String -> String -> IO Inventario
