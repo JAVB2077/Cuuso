@@ -29,7 +29,8 @@ eliminarLibro archivo (Inventario listaLibros) tituloBuscado autorBuscado = do
     let nuevoInventario = filter (\(libro, _) -> titulo libro /= tituloBuscado || autor libro /= autorBuscado) listaLibros
     -- Guardar el nuevo inventario en un archivo temporal
     (nombreTemp, manejadorTemp) <- openTempFile "." "temp"
-    hPutStr manejadorTemp $ unlines (map (\(libro, cantidad) -> titulo libro ++ "," ++ autor libro ++ "," ++ show (año libro) ++ "," ++ show (precio libro) ++ "," ++ show cantidad) nuevoInventario)
+    hPutStr manejadorTemp $ unlines (map (\(libro, cantidad) -> titulo libro ++ "," ++ autor libro ++ "," ++ show (año libro) 
+                        ++ "," ++ show (precio libro) ++ "," ++ show cantidad) nuevoInventario)
     hClose manejadorTemp
     -- Reemplazar el archivo original con el temporal
     eliminarArchivo archivo
