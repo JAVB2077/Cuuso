@@ -4,7 +4,7 @@ import System.Directory (removeFile, renameFile)
 import Data.List (delete)
 
 module Inventario
-  ( Inventario(..)
+  ( Inventario
   , agregarLibro
   , buscarPorTitulo
   , eliminarLibro
