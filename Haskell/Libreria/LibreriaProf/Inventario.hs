@@ -27,5 +27,15 @@ buscarAutorPorAutor :: Inventario -> String -> Inventario
 buscarAutorPorAutor inventario autorBuscado = filter (\(libro, _) -> autor libro == autorBuscado) inventario
 
 --Eliminar libro
-eliminarLibro :: Inventario -> String -> String -> Inventario
-eliminarLibro inventario tituloBuscado autorBuscado = filter (\(libro, _) -> titulo libro /= tituloBuscado || autor libro /= autorBuscado) inventario
+eliminarLibro :: FilePath -> Inventario -> String -> String -> IO Inventario
+eliminarLibro archivo (Inventario libros) tituloBuscado autorBuscado = do
+  let nuevoInventario = filter (\(libro, _) -> titulo libro /= tituloBuscado || autor libro /= autorBuscado) libros
+  -- Guardar el nuevo inventario en un archivo temporal
+  (tempName, tempHandle) <- openTempFile "." "temp"
+  hPutStr tempHandle $ unlines (map (\(libro, cantidad) -> titulo libro ++ "," ++ autor libro ++ "," ++ show (año libro) ++ "," ++ show (precio libro) ++ "," ++ show cantidad) nuevoInventario)
+  hClose tempHandle
+  -- Reemplazar el archivo original con el temporal
+  removeFile archivo
+  renameFile tempName archivo
+  putStrLn "Libro eliminado."
+  return (Inventario nuevoInventario)
