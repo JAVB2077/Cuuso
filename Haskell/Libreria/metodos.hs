@@ -1,0 +1,2 @@
+module Metodos (cargarInventario,guardarInvertario,agrgegarLibro,eliminarLibro,buscarLibro,eliminarLibro,buscarLibro,listaInventario,actulizarPrecioLibro,ordenarInventario,exportarInforme) where
+import Libro
