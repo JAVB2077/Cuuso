@@ -18,7 +18,7 @@ data Inventario = Inventario
 -- Agregar libro
 agregarLibro :: Libro -> Integer -> Inventario -> Inventario
 agregarLibro libro cantidad (Inventario libros) = Inventario ((libro, cantidad) : libros)
--- Guardar todos los libros en el inventario con su cantidad
+-- Guardar todos los libros en el inventario
 listarInventario :: Inventario -> IO ()
 listarInventario (Inventario libros) = mapM_ (\(libro, cantidad) -> putStrLn (mostrarLibro libro ++ ", Cantidad: " ++ show cantidad)) libros
 
