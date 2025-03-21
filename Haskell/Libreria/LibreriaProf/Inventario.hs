@@ -14,8 +14,6 @@ data Inventario = Inventario
   { libros :: [(Libro, Integer)]
   } deriving (Show, Eq)
 
-inventarioVacio :: Inventario
-inventarioVacio = Inventario []
 
 -- Agregar libro
 agregarLibro :: Libro -> Integer -> Inventario -> Inventario
