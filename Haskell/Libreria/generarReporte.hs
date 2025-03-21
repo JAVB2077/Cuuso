@@ -1,3 +1,4 @@
+--- Joseph Angel Vega Bernal
 module Reporte (librosMenor5Stock, libroMasCaro, libroMasBarato, promedioPrecios) where
 import Libro
 -- Importamos funciones de Data.List para trabajar con listas
