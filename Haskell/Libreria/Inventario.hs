@@ -1,3 +1,4 @@
+--Ricardo Eliseo Montiel Damian
 import Libro
 import System.IO
 import System.Directory (eliminarArchivo, renombrarArchivo)
