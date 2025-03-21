@@ -3,7 +3,8 @@ import System.IO
 import System.Directory (eliminarArchivo, renombrarArchivo)
 import Data.List (delete)
 
-module Iventario (cargarInventario, guardarInvertario, agregarLibro,eliminarLibro, buscarLibro, buscarLibroPorTitulo, buscarLibroPorAutor, listaInventario, actulizarPrecioLibro, ordenarInventario, exportarInforme) where
+module Iventario (cargarInventario, guardarInvertario, agregarLibro,eliminarLibro, buscarLibro, buscarLibroPorTitulo, 
+                   buscarLibroPorAutor, listaInventario, actulizarPrecioLibro, ordenarInventario, exportarInforme) where
 
 data Inventario = Inventario
   { libros :: [(Libro, Integer)]
