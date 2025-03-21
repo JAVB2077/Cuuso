@@ -22,8 +22,12 @@ main = do
 
   -- Buscar un libro por título
   putStrLn "\nBuscando el libro 'Nuevo Libro' por título:"
-  let resultadosTitulo = buscarPorTitulo inventarioConNuevoLibro "Nuevo Libro"
+  let resultadosTitulo = buscarLibroPorTitulo inventarioConNuevoLibro "Nuevo Libro"
   listarInventario resultadosTitulo
+
+  putStrLn "\nBuscando el libro 'Nuevo Libro' por Autor:"
+  let resultadosAutor = buscarLibroPorAutor inventarioConNuevoLibro "Nuevo Libro"
+  listarInventario resultadosAutor
 
   -- Eliminar un libro del inventario por título y autor
   putStrLn "\nEliminando el libro 'Nuevo Libro' del autor 'Autor Nuevo':"
