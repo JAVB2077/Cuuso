@@ -1,6 +1,6 @@
 import Libro
 import System.IO
-import System.Directory (removeFile, renameFile)
+import System.Directory (eliminarArchivo, renombrarArchivo)
 import Data.List (delete)
 
 module Iventario (cargarInventario, guardarInvertario, agregarLibro,eliminarLibro, buscarLibro, buscarLibroPorTitulo, buscarLibroPorAutor, listaInventario, actulizarPrecioLibro, ordenarInventario, exportarInforme) where
@@ -31,7 +31,7 @@ eliminarLibro archivo (Inventario listaLibros) tituloBuscado autorBuscado = do
     hPutStr manejadorTemp $ unlines (map (\(libro, cantidad) -> titulo libro ++ "," ++ autor libro ++ "," ++ show (año libro) ++ "," ++ show (precio libro) ++ "," ++ show cantidad) nuevoInventario)
     hClose manejadorTemp
     -- Reemplazar el archivo original con el temporal
-    removeFile archivo
-    renameFile nombreTemp archivo
+    eliminarArchivo archivo
+    renombrarArchivo nombreTemp archivo
     putStrLn "Libro eliminado."
     return (Inventario nuevoInventario)
